@@ -1,4 +1,4 @@
-# scala xlp titan extruder holder
+# scalar xlp titan extruder holder
 a mount option for the titan extruder on a scalar xlp
 
 Since the proposed mount options for the titan extruder on a Scalar
