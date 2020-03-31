@@ -43,16 +43,17 @@ difference()
         cube([20,30,30], center=true);
     }
 }//module kettenbefestigung()
-module kabelbruecke()
+module kabelbruecke(h=7, l= 50)
 {
-
-  translate([0,0.5,-3])
-    cube([5,4.5,5]);
-  translate([0,0.5,-5])
-    cube([5,45,2]);
-  translate([0,0.5,-7]) kabelhaken();
-  translate([5,22.5,-7]) rotate([0,0,180])kabelhaken();
-  translate([0,42.5,-7]) kabelhaken();
+  color("blue")translate([0,0.5,-h]) cube([5,4.5,h]);//Verbindung zur Platine
+  color("red")translate([0,0.5,-h-2]) 
+    union()
+    {
+      cube([5,l,2]);
+      translate([0,0,-2]) kabelhaken();
+      translate([5,l/2,-2]) rotate([0,0,180])kabelhaken();
+      translate([0,l-3,-2]) kabelhaken();
+    }
 }//module kabelbrücke()
 
 module kabelhaken()

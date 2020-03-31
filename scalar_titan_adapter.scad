@@ -13,6 +13,7 @@ ueinr = 10;  //Untere Einrückung
 oeinr = 6;  //Obere Einrückung 
 
 dicke = 6;
+bohrluft = .2;
 
 scalar_titan_adapter();
 
@@ -105,19 +106,19 @@ module scalar_titan_adapter()
       {
         translate([0, 0,-1])
         {
-          translate([-0.15, -.5,-dicke-19])cylinder(d=4.1, h=2*dicke+25, $fn=64);
-          translate([-ebreite/2+1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);
-          translate([ebreite/2-1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);
-          translate([-ebreite/2+1, -ghoehe/2+(ehoehe+uehoeh)-3,0])cylinder(d=3.5, h=dicke+2, $fn=32);
-          translate([ebreite/2-1, -ghoehe/2+(ehoehe+uehoeh)-3,0])cylinder(d=3.5, h=dicke+2, $fn=32);
-          translate([-gbreite/2+4.45, -0.5,0])cylinder(d=2.8, h=dicke+2, $fn=32);
-          translate([gbreite/2-4.55, -0.5,0])cylinder(d=2.8, h=dicke+2, $fn=32);
-          translate([gbreite/2+5.3, -1.55,0])cylinder(d=13, h=dicke+2, $fn=32);
-          translate([-ebreite+1, ghoehe/2-(ehoehe+uehoeh)-2.5,0]) ausschnitt();
+          translate([-0.15, -.5,-dicke-19])cylinder(d=4+bohrluft, h=2*dicke+25, $fn=64);//PTE Zentralloch
+          translate([-ebreite/2+1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);//Hintenlinks
+          translate([ebreite/2-1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);//hinten Rechts
+          translate([-ebreite/2+1, -ghoehe/2+(ehoehe+uehoeh)-3,0])cylinder(d=3.5, h=dicke+2, $fn=32);//Vorne Links
+          translate([ebreite/2-1, -ghoehe/2+(ehoehe+uehoeh)-3,0])cylinder(d=3.5, h=dicke+2, $fn=32);//vorne Rechts
+         translate([-gbreite/2+4.45, -0.5,0])cylinder(d=2.8, h=dicke+2, $fn=32);//Bohrung links 
+          translate([gbreite/2-4.55, -0.5,0])cylinder(d=2.8, h=dicke+2, $fn=32);//Bohrung rechts
+          translate([gbreite/2+5.3, -1.55,0])cylinder(d=13, h=dicke+2, $fn=32);//Sondenausschnitt
+          translate([-ebreite+1, ghoehe/2-(ehoehe+uehoeh)-2.5,0]) ausschnitt();//Schraubenauschnitt vorne links
           translate([ebreite-17, ghoehe/2-(ehoehe+uehoeh)-2.5,0])ausschnitt();
           translate([-ebreite+1, -ghoehe/2+2.5,0]) ausschnitt();
           translate([ebreite-17, -ghoehe/2+2.5,0])ausschnitt();
-          translate([-ebreite+1, -ghoehe/2-6,0]) cube([16,2*dicke,2*dicke/3]);
+          translate([-ebreite+1, -ghoehe/2-6,0]) cube([16,2*dicke,2*dicke/3]);//Oeffnungen der Schraubenaussschnitte
           translate([ebreite-17, -ghoehe/2-6,0]) cube([16,2*dicke,2*dicke/3]);
           translate(eckpunkte[6]) translate([0,0,4]) rotate([0,0,-90]) fillet(1,dicke+2);
           translate(eckpunkte[8]) translate([0,0,4]) rotate([0,0,-90]) fillet(2,dicke+2);
