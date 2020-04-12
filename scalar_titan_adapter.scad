@@ -19,8 +19,6 @@ scalar_titan_adapter();
 
 module scalar_titan_adapter()
 {
-
-
   eckpunkte =
     [
     [-gbreite/2,-ghoehe/2+ueinr,0], //0
@@ -107,6 +105,7 @@ module scalar_titan_adapter()
         translate([0, 0,-1])
         {
           translate([-0.15, -.5,-dicke-19])cylinder(d=4+bohrluft, h=2*dicke+25, $fn=64);//PTE Zentralloch
+          //translate([-0.15, -.5,1])cylinder(d=12, h=21, $fn=64);//PTe Mutter
           translate([-ebreite/2+1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);//Hintenlinks
           translate([ebreite/2-1, ghoehe/2-(ehoehe+uehoeh)+1,0])cylinder(d=3.5, h=dicke+2, $fn=32);//hinten Rechts
           translate([-ebreite/2+1, -ghoehe/2+(ehoehe+uehoeh)-3,0])cylinder(d=3.5, h=dicke+2, $fn=32);//Vorne Links
