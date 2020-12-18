@@ -3,24 +3,23 @@ use <../x-axe/E3DV6.scad>;
 use <../masken/cantileverSnapFit.scad>;
 DIN965  = 2;
 
-Schlittenplatte(dicke = 5,baender = false, centered = [1,0,0]);
-difference()
-{
-  union()
-  {
-    translate([0,52.4,5]) TitanHolder();
-    translate([0,52.4,5]) HotendHolder(print = "bottom");
-  }
-  difference()
-  {
-    bohrungsmaske( 31.5, baender = false,centered = [1,0,0],screwtype = DIN965); 
-    color("blue")
-      translate([0,52.4,40.0])
-      cube([10,30,80], center = true);
-  }
-}
+// Schlittenplatte(dicke = 5,baender = false, centered = [1,0,0]);
+// difference()
+// {
+//   union()
+//   {
+//     translate([0,52.4,5]) TitanHolder();
+//     translate([0,52.4,5]) HotendHolder(print = "bottom");
+//   }
+//   difference()
+//   {
+//     bohrungsmaske( 31.5, baender = false,centered = [1,0,0],screwtype = DIN965); 
+//       translate([0,52.4,40.0])
+//       cube([10,30,80], center = true);
+//   }
+// }
 
-translate([-35,7,0]) Sonde();
+//translate([-35,7,0]) Sonde();
  translate([0,-53,-5])
  difference()
  {
@@ -31,7 +30,6 @@ translate([-35,7,0]) Sonde();
   difference()
   {
     bohrungsmaske( 18.6, baender = false,centered = [1,0,0],screwtype = DIN965); 
-    color("blue")
       translate([0,52.4,40.0])
       cube([10,30,80], center = true);
   }
@@ -65,7 +63,7 @@ module Sonde(part = "both")
       }
     }
   }
-     color("blue")//xsensor stopper
+     //xsensor stopper
   translate([-cs[0]+4.5,5,cs[1]/2])
       rotate([90,0,0])
       boppel(cs[1]);
@@ -124,14 +122,44 @@ module HotendHolder(print = "both", luft = .2)
         }
         if(print == "both" || print == "top")
         {
-          translate([0,-befblock2[1]/2-luft,befblock2[2]/4+luft]) 
-            color("blue")
-            cube([befblock2[0],befblock2[1]-2*luft, befblock2[2]/2-2*luft],center = true);
-          color("red") 
-            translate([-befblock2[0]/2+2.5,-befblock2[1]/1+2.5,luft])
-            cylinder(d=8, h = befblock2[2]/2-luft, $fn = 32);
-          translate([befblock2[0]/2-2.5,-befblock2[1]/1+2.5,luft])
-            cylinder(d=8, h = befblock2[2]/2-luft, $fn = 32);
+          difference()
+          {
+            union()
+            {
+              translate([0,-befblock2[1]/2-luft,befblock2[2]/4+luft+3]) 
+                //thicker to allow extra fan to be attached
+                cube([befblock2[0],befblock2[1]-2*luft, befblock2[2]/2-2*luft+6],center = true);
+              translate([-befblock2[0]/2+2.5,-befblock2[1]/1+2.5,luft])
+                cylinder(d=8, h = befblock2[2]/2-luft, $fn = 32);
+              translate([befblock2[0]/2-2.5,-befblock2[1]/1+2.5,luft])
+                cylinder(d=8, h = befblock2[2]/2-luft, $fn = 32);
+            }
+            //Screw reservations
+            union() 
+            {
+              //lower screwholes
+              translate([-befblock2[0]/2+2.5,-befblock2[1]/1+2.5,befblock2[2]/2-luft])
+                cylinder(d=9, h = 7, $fn = 32);
+              translate([befblock2[0]/2-2.5,-befblock2[1]/1+2.5,befblock2[2]/2-luft])
+                cylinder(d=9, h = 7, $fn = 32);
+              //fanhoiles
+              translate([-11.9,-befblock2[1]/1+5,befblock2[2]/2-luft])
+                cylinder(d=3, h = 7, $fn = 32);
+              translate([11.9,-befblock2[1]/1+5,befblock2[2]/2-luft])
+                cylinder(d=3, h = 7, $fn = 32);
+              //upper, partial screw holes
+              translate([-befblock2[0]/2+6.0,+1.5,-befblock2[2]/2-luft])
+                cylinder(d=9, h = 2*befblock2[2]+2*luft, $fn = 32);
+              translate([befblock2[0]/2-7.0,1.5,-befblock2[2]/2-luft])
+                cylinder(d=9, h = 2*befblock2[2]+2*luft, $fn = 32);
+            }
+          }
+            color("red") 
+            {
+            }
+
+
+
         }
       }
       rotate([-90,0,0]) E3DV6(offset = "top");
